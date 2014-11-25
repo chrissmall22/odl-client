@@ -35,14 +35,13 @@ class CoreMixin(ApiBase):
     """Core REST API Methods
 
     This class contains methods that call the Core REST API functions in
-    the HP VAN SDN Controller
+    the SDN Controller
 
-    - Application management
     - Authentication
     - Controller management
         - Logs
         - Support Reports
-    - Licensing
+
 
     """
     def __init__(self, controller, auth):

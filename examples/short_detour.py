@@ -19,7 +19,7 @@ import odlclient as odl
 def main():
     #initialize the api
     controller = '15.126.229.78'
-    #auth = hp.Auth(user="sdn", pass="skyline", controller="127.0.0.1")
+    auth = hp.Auth(user="sdn", pass="skyline", controller="127.0.0.1")
     api = odl.Api(controller=controller, auth=auth)
 
     #create the match object

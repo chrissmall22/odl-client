@@ -24,7 +24,7 @@ from odlclient.auth import Auth
 class ApiBaseTest(unittest.TestCase):
     def test_apibase_instantiation(self):
         controller = '10.10.10.10'
-        token = XAuthToken('10.10.10.10', 'odl', 'odl')
+        token = Auth('10.10.10.10', 'odl', 'odl')
         rest_client = RestClient(token)
         apibase = ApiBase(controller, rest_client)
         self.assertEqual(apibase.controller, controller)

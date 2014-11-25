@@ -14,8 +14,6 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 
-import json
-import datetime
 
 import requests
 
@@ -35,23 +33,11 @@ class Auth(requests.auth.AuthBase):
         self.password = password
 
 
-    def __call__(self, request):
-        """This method is called when an authentication token is
-        required. We first check that the token exists and has not
-        expired and then return the X-Auth-Token request header."""
-        if (self.token is None or
-                self.token_expiration <= datetime.datetime.now()):
-            self.get_auth()
-        request.headers['X-Auth-Token'] = self.token
-        return request
-
     def get_auth(self):
         """This method requests an authentication token from the SDN
         controller and returns a dictionary with the token and
         expiration time."""
-        auth = request.HTTPBasicAuth(self.user,self.passeord)
+        auth = requests.HTTPBasicAuth(self.user,self.passeord)
         return auth
 
-    def delete_auth(self):
-        """Delete Authentication Token, AKA, Logout. This method logs
-        the current user out"""
+
