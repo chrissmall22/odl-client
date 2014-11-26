@@ -19,7 +19,7 @@ Controller API"""
 
 
 from odlclient.apibase import ApiBase
-#from odlclient.core import CoreMixin
+# from odlclient.core import CoreMixin
 from odlclient.net import NetMixin
 from odlclient.of import OfMixin
 from odlclient.rest import RestClient

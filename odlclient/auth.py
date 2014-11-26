@@ -44,7 +44,5 @@ class Auth(requests.auth.AuthBase):
         """This method requests an authentication token from the SDN
         controller and returns a dictionary with the token and
         expiration time."""
-        auth = HTTPBasicAuth(self.user,self.password)
+        auth = HTTPBasicAuth(self.user, self.password)
         return auth
-
-
