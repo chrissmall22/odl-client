@@ -44,8 +44,6 @@ class FPin(ApiBase):
         self._of_base_url = ("https://{0}:8443".format(self.controller) +
                              "/controller/nb/v2/flowprogrammer")
 
-
-
     def _assemble_flows(self, flows):
         if isinstance(flows, list):
             tmp = []
@@ -61,7 +59,7 @@ class FPin(ApiBase):
             raise DatatypeError([datatypes.Flow, list], f.__class__())
         return data
 
-    def add_flows(self, dpid, flows, container=None):
+    def add_flows(self, dpid, flows, container=None, flow_name=None):
         """Add a flow, or flows to the selected DPID
 
         :param str dpid: The datapath ID
@@ -69,8 +67,10 @@ class FPin(ApiBase):
         :param str container: container name
 
         """
-        if container == None:
+        if container is None:
             container = "default"
+        if flow_name is None:
+            flow_name = "flow1"
         url = (self._of_base_url + '/' + container +
                'node/OF/{0}/staticFlow/flow1'.format(urllib.quote(dpid)))
         data = self._assemble_flows(flows)
@@ -87,12 +87,13 @@ class FPin(ApiBase):
         :param str flow_name: flow name
 
         """
-        if container == None:
+        if container is None:
             container = "default"
-        if flow_name == None:
+        if flow_name is None:
             flow_name = "flow1"
         url = (self._of_base_url + container +
-               'node/OF/{0}/staticFlow/'.format(urllib.quote(dpid)) + flow_name)
+               'node/OF/{0}/staticFlow/'.format(urllib.quote(dpid))
+               + flow_name)
         data = self._assemble_flows(flows)
         r = self.restclient.put(url, json.dumps(data))
         raise_errors(r)
@@ -106,12 +107,13 @@ class FPin(ApiBase):
         :param str container: container name
         :param str flow_name: flow name
         """
-        if container == None:
+        if container is None:
             container = "default"
-        if flow_name == None:
+        if flow_name is None:
             flow_name = "flow1"
         url = (self._of_base_url + container +
-               'node/OF/{0}/staticFlow/'.format(urllib.quote(dpid)) + flow_name)
+               'node/OF/{0}/staticFlow/'.format(urllib.quote(dpid))
+               + flow_name)
         data = self._assemble_flows(flows)
         r = self.restclient.delete(url, json.dumps(data))
         raise_errors(r)
@@ -138,4 +140,3 @@ class FPin(ApiBase):
         url = (self._of_base_url + urllib.quote(container))
         r = self.restclient.post(url, json.dumps(data))
         raise_errors(r)
-
