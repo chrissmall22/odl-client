@@ -2,7 +2,8 @@ OpenDayLight SDN Client
 =============
 .. image:: https://travis-ci.org/chrissmall22/odl-client.png?branch=master
     :target: https://travis-ci.org/chrissmall22/odl-client
-[![Coverage Status](https://img.shields.io/coveralls/chrissmall22/odl-client.svg)](https://coveralls.io/r/chrissmall22/odl-client?branch=master)
+.. image:: https://img.shields.io/coveralls/chrissmall22/odl-client.svg
+    :target: https://coveralls.io/r/chrissmall22/odl-client?branch=master
     
 **A Python library that makes interaction with the OpenDayLight Controller REST API easy**
 
