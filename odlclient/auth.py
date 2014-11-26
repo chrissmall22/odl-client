@@ -14,8 +14,8 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 
-
 import requests
+from requests.auth import HTTPBasicAuth
 
 
 class Auth(requests.auth.AuthBase):
@@ -32,12 +32,19 @@ class Auth(requests.auth.AuthBase):
         self.user = user
         self.password = password
 
+    def __call__(self, request):
+        """This method is called when an authentication token is
+        required. We first check that the token exists and has not
+        expired and then return the X-Auth-Token request header."""
+
+        self.get_auth()
+        return request
 
     def get_auth(self):
         """This method requests an authentication token from the SDN
         controller and returns a dictionary with the token and
         expiration time."""
-        auth = requests.HTTPBasicAuth(self.user,self.passeord)
+        auth = HTTPBasicAuth(self.user,self.password)
         return auth
 
 

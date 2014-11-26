@@ -57,6 +57,7 @@ class RestClient(object):
             args = self._download_args()
         else:
             args = self.args
+        print args
         r = requests.get(url, **args)
         return r
 

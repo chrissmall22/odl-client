@@ -19,7 +19,7 @@ import unittest
 from odlclient.api import Api
 from odlclient.auth import Auth
 from odlclient.apibase import ApiBase
-from odlclient.core import CoreMixin
+#from odlclient.core import CoreMixin
 from odlclient.net import NetMixin
 from odlclient.of import OfMixin
 
@@ -34,7 +34,7 @@ class ApiTestCase(unittest.TestCase):
     def test_api_instantiation(self):
         api = Api('10.10.10.10', self.auth)
         self.assertTrue(isinstance(api, ApiBase))
-        self.assertTrue(isinstance(api, CoreMixin))
+        #self.assertTrue(isinstance(api, CoreMixin))
         self.assertTrue(isinstance(api, NetMixin))
         self.assertTrue(isinstance(api, OfMixin))
         self.assertEqual(api.restclient.auth, self.auth)

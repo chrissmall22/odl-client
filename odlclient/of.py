@@ -30,7 +30,7 @@ class OfMixin(ApiBase):
     """OpenFlow REST API Methods
 
     This class contains methods that call the OpenFlow
-    REST API on the HP VAN SDN Controller
+    REST API on the ODL SDN Controller
 
     - Topology Service
     - Node Service

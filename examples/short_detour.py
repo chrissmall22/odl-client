@@ -16,11 +16,12 @@
 
 import odlclient as odl
 
+
 def main():
     #initialize the api
     controller = '15.126.229.78'
-    auth = hp.Auth(user="sdn", pass="skyline", controller="127.0.0.1")
-    api = odl.Api(controller=controller, auth=auth)
+    #auth = hp.Auth(user="sdn", pass="skyline", controller="127.0.0.1")
+    api = odl.Api(controller=controller, auth=())
 
     #create the match object
     match = odl.datatypes.Match(eth_type="ipv4", ipv4_src="10.0.0.1",
