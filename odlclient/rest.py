@@ -139,8 +139,6 @@ class RestClient(object):
         return result
 
     def post(self, url, data, is_file=False):
-        print url
-	print data
         r = self._post(url, data, is_file)
         raise_errors(r)
         return r
