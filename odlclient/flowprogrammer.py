@@ -130,13 +130,3 @@ class FPin(ApiBase):
                'datapaths/{0}/groups'.format(urllib.quote(dpid)))
 
         return self.restclient.get(url)
-
-    def get_container(self, container):
-        """Create a group
-
-        :param str container: Container name
-
-        """
-        url = (self._of_base_url + urllib.quote(container))
-        r = self.restclient.post(url, json.dumps(data))
-        raise_errors(r)
