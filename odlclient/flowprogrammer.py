@@ -44,205 +44,7 @@ class FPin(ApiBase):
         self._of_base_url = ("https://{0}:8443".format(self.controller) +
                              "/controller/nb/v2/flowprogrammer")
 
-    def get_stats(self):
-        """List controller statistics for all controllers that are
-        part of this controller's team.
 
-        :return: List of statistics
-        :rtype: odlclient.datatypes.Stats"""
-        url = self._of_base_url + 'stats'
-        return self.restclient.get(url)
-
-    def get_port_stats(self, dpid, port_id=None):
-        """List all port statistics for a given datapath or for a
-        given datapath and port number
-
-        :param str dpid: Filter by Datapath ID
-        :param str port_id: Filter by Port ID
-        :returns: Statistics for Port
-        :rtype: odlclient.datatypes.Stats
-
-        """
-        url = (self._of_base_url +
-               'stats/ports?dpid={0}'.format(urllib.quote(dpid)))
-        if port_id:
-            url = url + '&port_id={0}'.format(port_id)
-        return self.restclient.get(url)
-
-    def get_group_stats(self, dpid, group_id=None):
-        """List group statistics
-
-        :param str dpid: Filter by Datapath ID
-        :param group_id: Filter by Group ID
-        :return: Group statistics
-        :rtype: odlclient.datatypes.Stats
-
-        """
-        url = (self._of_base_url +
-               'stats/groups?dpid={0}'.format(urllib.quote(dpid)))
-        if group_id:
-            url = url + '&group_id={0}'.format(group_id)
-        return self.restclient.get(url)
-
-    def get_meter_stats(self, dpid, meter_id):
-        """List meter statistics for
-
-        :param str dpid: The Datapath ID
-        :param str meter_id: The Meter ID
-        :return: Meter statistics
-        :rtype: odlclient.datatypes.Stats
-
-        """
-        url = (self._of_base_url +
-               'stats/meters?dpid={0}&meter={1}'.format(urllib.quote(dpid),
-                                                        meter_id))
-        return self.restclient.get(url)
-
-    def get_datapaths(self):
-        """List all datapaths that are managed by this controller.
-
-        :return: A list of Datapaths
-        :rtype: list
-
-        """
-        url = self._of_base_url + 'datapaths'
-        return self.restclient.get(url)
-
-    def get_datapath_detail(self, dpid):
-        """Get detailed information for a datapath.
-
-        :param str dpid: The datapath ID
-        :return: Datatpath details
-        :rtype: odlclient.datatypes.Datapath
-
-        """
-        url = (self._of_base_url + 'datapaths/{0}'.format(urllib.quote(dpid)))
-        return self.restclient.get(url)
-
-    def get_meter_features(self, dpid):
-        """Get meter features for the provided Datapath ID
-
-        :param str dpid: The Datapath ID
-        :return: Meter Features
-        :rtype: odlclient.datatypes.MeterFeatures
-
-        """
-
-        url = (self._of_base_url +
-               'datapaths/{0}/features/meter'.format(urllib.quote(dpid)))
-        return self.restclient.get(url)
-
-    def get_group_features(self, dpid):
-        """Get datapath group features
-
-        :param str dpid: The Datapath ID
-        :return: Group Features
-        :rtype: odlclient.datatypes.GroupFeatures
-
-        """
-        url = (self._of_base_url +
-               'datapaths/{0}/features/group'.format(urllib.quote(dpid)))
-        return self.restclient.get(url)
-
-    def get_ports(self, dpid):
-        """ Gets a list of ports from the specified DPID
-
-        :param str dpid: The datapath ID
-        :return: List of ports
-        :rtype: list
-
-        """
-        url = (self._of_base_url +
-               'datapaths/{0}/ports'.format(urllib.quote(dpid)))
-        return self.restclient.get(url)
-
-    def get_port_detail(self, dpid, port_id):
-        """ Gets detailed port information for the specified port
-
-        :param str dpid: The datapath ID
-        :param str port_id: The port ID
-        :return: Port details
-        :rtype: odlclient.datatypes.Port
-
-        """
-        url = (self._of_base_url +
-               'datapaths/{0}/ports/{1}'.format(urllib.quote(dpid), port_id))
-        return self.restclient.get(url)
-
-    def get_meters(self, dpid):
-        """List all meters configured on the supplied DPID
-
-        :param str dpid: The datapath ID
-        :returns: A list of meters
-        :rtype: list
-
-        """
-        url = (self._of_base_url +
-               'datapaths/{0}/meters'.format(urllib.quote(dpid)))
-        return self.restclient.get(url)
-
-    def add_meter(self, dpid, meter):
-        """Add a new meter to the supplied DPID
-
-        :param str dpid:
-        :param odlclient.datatypes.Meter meter: The new Meter object
-
-        """
-        url = (self._of_base_url +
-               'datapaths/{0}/meters'.format(urllib.quote(dpid)))
-        r = self.restclient.post(url, json.dumps(meter.to_dict()))
-        raise_errors(r)
-
-    def get_meter_details(self, dpid, meter_id):
-        """Get detailed meter information
-
-        :param str dpid: The datapath ID
-        :param str meter_id: The meter ID
-        :return: Meter details
-        :rtype: odlclient.datatypes.Meter
-
-        """
-        url = (self._of_base_url +
-               'datapaths/{0}/meters/{1}'.format(urllib.quote(dpid), meter_id))
-        return self.restclient.get(url)
-
-    def update_meter(self, dpid, meter_id, meter):
-        """ Update the specified meter
-
-        :param str dpid: The datapath ID
-        :param str meter_id: The meter ID
-        :param odlclient.datatypes.Meter meter: The meter
-
-        """
-        url = (self._of_base_url +
-               'datapaths/{0}/meters/{1}'.format(urllib.quote(dpid), meter_id))
-        r = self.restclient.put(url, meter)
-        raise_errors(r)
-
-    def delete_meter(self, dpid, meter_id):
-        """Delete a meter
-
-        :param str dpid: The datapath ID
-        :param str meter_id: The meter ID to be deleted
-
-        """
-        url = (self._of_base_url +
-               'datapaths/{0}/meters/{1}'.format(urllib.quote(dpid), meter_id))
-        r = self.restclient.put(url, self.auth)
-        raise_errors(r)
-
-    def get_flows(self, dpid):
-        """Gets a list of flows on the supplied DPID
-
-
-        :param str dpid: The datapath ID
-        :return: List of flows
-        :rtype: list
-
-        """
-        url = (self._of_base_url +
-               'datapaths/{0}/flows'.format(urllib.quote(dpid)))
-        return self.restclient.get(url)
 
     def _assemble_flows(self, flows):
         if isinstance(flows, list):
@@ -259,43 +61,57 @@ class FPin(ApiBase):
             raise DatatypeError([datatypes.Flow, list], f.__class__())
         return data
 
-    def add_flows(self, dpid, flows):
+    def add_flows(self, dpid, flows, container=None):
         """Add a flow, or flows to the selected DPID
 
         :param str dpid: The datapath ID
         :param list, odlclient.datatypes.Flow flows: The flow or flows to add
+        :param str container: container name
 
         """
-        url = (self._of_base_url +
-               'datapaths/{0}/flows'.format(urllib.quote(dpid)))
+        if container == None:
+            container = "default"
+        url = (self._of_base_url + '/' + container +
+               'node/OF/{0}/staticFlow/flow1'.format(urllib.quote(dpid)))
         data = self._assemble_flows(flows)
         r = self.restclient.post(url, json.dumps(data))
         raise_errors(r)
 
-    def update_flows(self, dpid, flows):
+    def update_flows(self, dpid, flows, container=None, flow_name=None):
         """Update a flow, or flows at the selected DPID
 
         :param str dpid: The datapath ID
         :param list, odlclient.datatypes.Flow flows:
             The flow or flows to update
+        :param str container: container name
+        :param str flow_name: flow name
 
         """
-        url = (self._of_base_url +
-               'datapaths/{0}/flows'.format(urllib.quote(dpid)))
+        if container == None:
+            container = "default"
+        if flow_name == None:
+            flow_name = "flow1"
+        url = (self._of_base_url + container +
+               'node/OF/{0}/staticFlow/'.format(urllib.quote(dpid)) + flow_name)
         data = self._assemble_flows(flows)
         r = self.restclient.put(url, json.dumps(data))
         raise_errors(r)
 
-    def delete_flows(self, dpid, flows):
+    def delete_flows(self, dpid, flows, container=None, flow_name=None):
         """ Delete flow, or flows from the specified DPID
 
         :param str dpid: The datapath ID
         :param list, odlclient.datatypes.Flow flows:
             The flow or flows to delete
-
+        :param str container: container name
+        :param str flow_name: flow name
         """
-        url = (self._of_base_url +
-               'datapaths/{0}/flows'.format(urllib.quote(dpid)))
+        if container == None:
+            container = "default"
+        if flow_name == None:
+            flow_name = "flow1"
+        url = (self._of_base_url + container +
+               'node/OF/{0}/staticFlow/'.format(urllib.quote(dpid)) + flow_name)
         data = self._assemble_flows(flows)
         r = self.restclient.delete(url, json.dumps(data))
         raise_errors(r)
@@ -313,52 +129,13 @@ class FPin(ApiBase):
 
         return self.restclient.get(url)
 
-    def add_group(self, dpid, group):
+    def get_container(self, container):
         """Create a group
 
-        :param str dpid: The datapath ID
-        :param odlclient.datatypes.Group group: The group to add
+        :param str container: Container name
 
         """
-        url = (self._of_base_url +
-               'datapaths/{0}/groups'.format(urllib.quote(dpid)))
-        data = {"group": group.to_dict()}
+        url = (self._of_base_url + urllib.quote(container))
         r = self.restclient.post(url, json.dumps(data))
         raise_errors(r)
 
-    def get_group_details(self, dpid, group_id):
-        """Get group details
-
-        :param str dpid: The datapath ID
-        :param str group_id: The group ID
-        :return: Group details
-        :rtype: odlclient.datatypes.Group
-
-        """
-        url = (self._of_base_url +
-               'datapaths/{0}/groups/{1}'.format(urllib.quote(dpid), group_id))
-        return self.restclient.get(url)
-
-    def update_group(self, dpid, group_id, group):
-        """Update a group
-
-        :param str dpid: The datapath ID
-        :param odlclient.datatypes.Group group: The group to add
-
-        """
-        url = (self._of_base_url +
-               'datapaths/{0}/groups/{1}'.format(urllib.quote(dpid), group_id))
-        r = self.restclient.post(url, json.dumps(group.to_dict()))
-        raise_errors(r)
-
-    def delete_groups(self, dpid, group_id):
-        """Delete a group
-
-        :param str dpid: The datapath ID
-        :param str group_id: The group ID to delete
-
-        """
-        url = (self._of_base_url +
-               'datapaths/{0}/groups/{1}'.format(urllib.quote(dpid), group_id))
-        r = self.restclient.delete(url, self.auth)
-        raise_errors(r)

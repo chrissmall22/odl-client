@@ -22,10 +22,11 @@ from odlclient.apibase import ApiBase
 # from odlclient.core import CoreMixin
 from odlclient.net import NetMixin
 from odlclient.of import OfMixin
+from odlclient.flowprogrammer import FPin
 from odlclient.rest import RestClient
 
 
-class Api(OfMixin, NetMixin, ApiBase):
+class Api(OfMixin, FPin, NetMixin, ApiBase):
     """ The container class for the ODL Controller Api """
     def __init__(self, controller, auth):
         self.restclient = RestClient(auth)
