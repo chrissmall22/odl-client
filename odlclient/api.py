@@ -25,7 +25,7 @@ from odlclient.of import OfMixin
 from odlclient.rest import RestClient
 
 
-class Api(CoreMixin, OfMixin, NetMixin, ApiBase):
+class Api(OfMixin, NetMixin, ApiBase):
     """ The container class for the ODL Controller Api """
     def __init__(self, controller, auth):
         self.restclient = RestClient(auth)
