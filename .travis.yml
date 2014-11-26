@@ -6,12 +6,12 @@ env:
   - TOXENV=pep8
 
 install:
-  - pip install -r requirements.txt --use-mirrors
+  - pip install -r requirements.txt
 before_script:
-  - pip install -U -r test_requirements.txt --use-mirrors
+  - pip install -U -r test_requirements.txt
 script:
   - tox
 
 after_success:
-  - pip install python-coveralls --use-mirrors
+  - pip install python-coveralls 
   - coveralls

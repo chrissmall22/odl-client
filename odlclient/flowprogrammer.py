@@ -26,7 +26,7 @@ import odlclient.datatypes as datatypes
 from odlclient.error import raise_errors, DatatypeError
 
 
-class OfMixin(ApiBase):
+class FPin(ApiBase):
     """OpenFlow REST API Methods
 
     This class contains methods that call the OpenFlow
@@ -40,7 +40,7 @@ class OfMixin(ApiBase):
 
     """
     def __init__(self, controller, restclient):
-        super(OfMixin, self).__init__(controller, restclient)
+        super(FPin, self).__init__(controller, restclient)
         self._of_base_url = ("https://{0}:8443".format(self.controller) +
                              "/controller/nb/v2/flowprogrammer")
 
