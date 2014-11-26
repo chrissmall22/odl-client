@@ -2,8 +2,10 @@ OpenDayLight SDN Client
 =============
 .. image:: https://travis-ci.org/chrissmall22/odl-client.png?branch=master
     :target: https://travis-ci.org/chrissmall22/odl-client
-
-
+.. image:: https://img.shields.io/coveralls/chrissmall22/odl-client.svg
+    :target https://coveralls.io/r/chrissmall22/odl-client?branch=master
+    
+    
 **A Python library that makes interaction with the HP SDN Controller REST API easy**
 
 Author: Chris Small, Hewlett Packard
